@@ -46,4 +46,4 @@ RUN { \
       echo '</IfModule>'; \
     } > /usr/src/wordpress/.htaccess
 
-#COPY docker-entrypoint.sh /usr/local/bin/
+COPY docker-entrypoint.sh /usr/local/bin/
