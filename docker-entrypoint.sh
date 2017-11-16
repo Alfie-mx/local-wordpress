@@ -20,11 +20,12 @@ $WORDPRESS_CONFIG_EXTRA
 PHP"
 fi
 
-#if ! [ -f /tmp/db-dump/*.sql ]; then
-#   runuser www-data -s /bin/sh -c "\
-#   wp search-replace \"${DB_SEARCH}\" \"${DB_REPLACE}\" \
-#   "
-#fi
+# Search and Replace in DB to replace domain name.
+if ! [ -f /tmp/db-dump/*.sql ]; then
+   runuser www-data -s /bin/sh -c "\
+   wp search-replace \"${DB_SEARCH}\" \"${DB_REPLACE}\" \
+   "
+fi
 
 
 exec "$@"
