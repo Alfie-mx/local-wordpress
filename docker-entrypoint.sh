@@ -20,6 +20,21 @@ $WORDPRESS_CONFIG_EXTRA
 PHP"
 fi
 
+# Make sure uploads directory exists and is writeable.
+mkdir -p $ROOT_DIR/wp-content/uploads
+chown $WEB_USER:$WEB_USER $ROOT_DIR/wp-content
+chown -R $WEB_USER:$WEB_USER $ROOT_DIR/wp-content/uploads
+
+# MySQL may not be ready when container starts.
+set +ex
+while true; do
+  if curl --fail --show-error --silent "${WORDPRESS_DB_HOST:-mysql}:3306" > /dev/null 2>&1; then break; fi
+  echo "Waiting for MySQL to be ready...."
+  sleep 3
+done
+set -ex
+
+
 # Search and Replace in DB to replace domain name.
 #if [ -n \"${DB_SEARCH}\" ] && [ -n \"${DB_REPLACE}\" ]; then
    runuser $WEB_USER -s /bin/sh -c "\
