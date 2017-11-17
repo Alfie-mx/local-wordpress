@@ -23,7 +23,7 @@ fi
 # Search and Replace in DB to replace domain name.
 #if [ -n \"${DB_SEARCH}\" ] && [ -n \"${DB_REPLACE}\" ]; then
    runuser $WEB_USER -s /bin/sh -c "\
-   wp search-replace \"${DB_SEARCH}\" \"${DB_REPLACE}\" \
+   wp search-replace '\"${DB_SEARCH}\"' '\"${DB_REPLACE}\"' \
    "
 #fi
 
