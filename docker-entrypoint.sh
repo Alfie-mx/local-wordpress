@@ -28,7 +28,7 @@ chown -R $WEB_USER:$WEB_USER $ROOT_DIR/wp-content/uploads
 # MySQL may not be ready when container starts.
 set +ex
 while true; do
-  if curl --fail --show-error --silent "${WORDPRESS_DB_HOST:-mysql}:3306" > /dev/null 2>&1; then break; fi
+  if curl --fail --show-error --silent "${WORDPRESS_DB_HOST:-mysql}" > /dev/null 2>&1; then break; fi
   echo "Waiting for MySQL to be ready...."
   sleep 3
 done
