@@ -20,6 +20,9 @@ $WORDPRESS_CONFIG_EXTRA
 PHP"
 fi
 
+# Update WP-CLI config with current virtual host.
+sed -i -E "s#^url: .*#url: ${WORDPRESS_SITE_URL:-http://project.dev}#" /etc/wp-cli/config.yml
+
 # Make sure uploads directory exists and is writeable.
 mkdir -p $ROOT_DIR/wp-content/uploads
 chown $WEB_USER:$WEB_USER $ROOT_DIR/wp-content
