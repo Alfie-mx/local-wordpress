@@ -35,7 +35,7 @@ set -ex
 
 # Install WordPress.
 runuser ${WEB_USER} -s /bin/sh -c "\
-wp core install
+wp core download
 "
 
 #runuser $WEB_USER -s /bin/sh -c "\
@@ -47,12 +47,12 @@ wp core install
 #  --url=\"${WORDPRESS_SITE_URL:-http://project.dev}\" \
 #  --skip-email"
 
-#if [ -n "${DB_SEARCH}" ]; then
-#runuser ${WEB_USER} -s /bin/sh -c "\
-#wp search-replace \"${DB_SEARCH}\" \"${DB_REPLACE}\" \
-# --allow-root \
-#"
-#fi
+if [ -n "${DB_SEARCH}" ]; then
+runuser ${WEB_USER} -s /bin/sh -c "\
+wp search-replace \"${DB_SEARCH}\" \"${DB_REPLACE}\" \
+ --allow-root \
+"
+fi
 
 echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 
