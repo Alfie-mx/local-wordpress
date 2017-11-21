@@ -20,7 +20,7 @@ if ! [ -f ${ROOT_DIR}/wp-config.php ]; then
     --dbpass=\"${WORDPRESS_DB_PASSWORD}\" \
     --skip-check \
     --extra-php <<PHP
-$WORDPRESS_CONFIG_EXTRA
+${WORDPRESS_CONFIG_EXTRA}
 PHP"
 fi
 
@@ -33,12 +33,12 @@ while true; do
 done
 set -ex
 
-if [ -n "${DB_SEARCH}" ]; then
-runuser ${WEB_USER} -s /bin/sh -c "\
-wp search-replace \"${DB_SEARCH}\" \"${DB_REPLACE}\" \
- --allow-root \
-"
-fi
+#if [ -n "${DB_SEARCH}" ]; then
+#runuser ${WEB_USER} -s /bin/sh -c "\
+#wp search-replace \"${DB_SEARCH}\" \"${DB_REPLACE}\" \
+# --allow-root \
+#"
+#fi
 
 echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 
