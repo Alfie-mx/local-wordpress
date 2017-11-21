@@ -5,6 +5,9 @@ set -ex
 ROOT_DIR=/var/www/html
 WEB_USER=www-data
 
+echo "==========================================================================="
+echo ${ROOT_USER}
+echo ${WEB_USER}
 
 # MySQL may not be ready when container starts.
 set +ex
@@ -15,9 +18,12 @@ while true; do
 done
 set -ex
 
-runuser $WEB_USER -s /bin/sh -c "\
+runuser ${WEB_USER} -s /bin/sh -c "\
 wp search-replace \"http://dev.parkroyal.drivedigitaldev.com\" \"http://alfredo-test.local:9000\" \
  --allow-root \
 "
+
+echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+
 
 exec "$@"
