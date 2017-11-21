@@ -33,6 +33,20 @@ while true; do
 done
 set -ex
 
+# Install WordPress.
+runuser ${WEB_USER} -s /bin/sh -c "\
+wp core install
+"
+
+#runuser $WEB_USER -s /bin/sh -c "\
+#wp core $([ "${WORDPRESS_INSTALL_TYPE}" == "multisite" ] && echo "multisite-install" || echo "install") \
+#  --title=\"${WORDPRESS_SITE_TITLE:-Project}\" \
+#  --admin_user=\"${WORDPRESS_SITE_USER:-wordpress}\" \
+#  --admin_password=\"${WORDPRESS_SITE_PASSWORD:-wordpress}\" \
+#  --admin_email=\"${WORDPRESS_SITE_EMAIL:-admin@example.com}\" \
+#  --url=\"${WORDPRESS_SITE_URL:-http://project.dev}\" \
+#  --skip-email"
+
 #if [ -n "${DB_SEARCH}" ]; then
 #runuser ${WEB_USER} -s /bin/sh -c "\
 #wp search-replace \"${DB_SEARCH}\" \"${DB_REPLACE}\" \
