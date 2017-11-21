@@ -25,7 +25,7 @@ if ! [ -f ${ROOT_DIR}/wp-config.php ]; then
     --dbhost=\"${WORDPRESS_DB_HOST:-mysql}\" \
     --dbname=\"${WORDPRESS_DB_NAME:-wordpress}\" \
     --dbuser=\"${WORDPRESS_DB_USER:-root}\" \
-    --dbpass=\"$WORDPRESS_DB_PASSWORD\" \
+    --dbpass=\"${WORDPRESS_DB_PASSWORD}\" \
     --skip-check \
     --extra-php <<PHP
 $WORDPRESS_CONFIG_EXTRA
