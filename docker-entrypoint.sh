@@ -6,7 +6,7 @@ ROOT_DIR=/var/www/html
 WEB_USER=www-data
 
 echo "==========================================================================="
-echo ${ROOT_USER}
+echo ${ROOT_DIR}
 echo ${WEB_USER}
 
 # MySQL may not be ready when container starts.
@@ -17,6 +17,20 @@ while true; do
   sleep 3
 done
 set -ex
+
+# Create WordPress config.
+if ! [ -f ${ROOT_DIR}/wp-config.php ]; then
+  runuser ${WEB_USER} -s /bin/sh -c "\
+  wp config create \
+    --dbhost=\"${WORDPRESS_DB_HOST:-mysql}\" \
+    --dbname=\"${WORDPRESS_DB_NAME:-wordpress}\" \
+    --dbuser=\"${WORDPRESS_DB_USER:-root}\" \
+    --dbpass=\"$WORDPRESS_DB_PASSWORD\" \
+    --skip-check \
+    --extra-php <<PHP
+$WORDPRESS_CONFIG_EXTRA
+PHP"
+fi
 
 runuser ${WEB_USER} -s /bin/sh -c "\
 wp search-replace \"http://dev.parkroyal.drivedigitaldev.com\" \"http://alfredo-test.local:9000\" \
